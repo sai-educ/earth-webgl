@@ -1,6 +1,10 @@
 'use strict';
 
 /* global window, THREE: true */
+import * as THREE from 'three';
+import OrbitControls from './controls/OrbitControls';
+
+THREE.OrbitControls = OrbitControls;
 
 var EarthWebGLDemo = EarthWebGLDemo || {};
 
@@ -26,6 +30,7 @@ var EarthWebGLDemo = EarthWebGLDemo || {};
             settings,
             starField,
             earth,
+            controls,
             mouseX = 0,
             mouseY = 0,
             windowHalfX = window.innerWidth / 2,
@@ -49,6 +54,16 @@ var EarthWebGLDemo = EarthWebGLDemo || {};
             });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Add OrbitControls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.target.set(0, 0, 0);
+            controls.update();
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 1;
+            controls.maxDistance = 100;
+            controls.maxPolarAngle = Math.PI / 2;
 
             //setup setereoscopic renderer effect
             if (vr) {
@@ -119,6 +134,15 @@ var EarthWebGLDemo = EarthWebGLDemo || {};
                     stereoEffect.setSize(window.innerWidth, window.innerHeight);
                 }
             }, false);
+
+            import * as THREE from 'three';
+            import OrbitControls from './controls/OrbitControls';
+
+            THREE.OrbitControls = OrbitControls;
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.target.set(0, 0, 0);
+            controls.update();
         })();
 
         /**
